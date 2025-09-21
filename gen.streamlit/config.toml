@@ -1,0 +1,5 @@
+# This file tells Streamlit Cloud which Python version to use.
+# Using a stable version like 3.11 ensures all your packages will be compatible.
+
+[server]
+python = "3.11"
