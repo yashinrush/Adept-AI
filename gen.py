@@ -4,13 +4,13 @@ import json
 import time
 
 # --- Configuration ---
-# WARNING: Do not hardcode API keys in production. Use environment variables or Streamlit secrets.
-# The user-provided key is used here for hackathon purposes.
-API_KEY = "AIzaSyAERC3aSiS3jyWH4uBCBGpITnu9XOUH7z0" # This is the user provided API key
+# Updated with your new API key
+API_KEY = "AIzaSyD0tHTZQMW43NPsPPde6PSlyyAXFnzkjrw" 
 
 try:
     genai.configure(api_key=API_KEY)
-    model = genai.GenerativeModel('gemini-1.5-flash-latest')
+    # Changed to 'gemini-flash-latest' to avoid the 404 retired model error
+    model = genai.GenerativeModel('gemini-flash-latest')
 except Exception as e:
     st.error(f"Failed to configure AI model. Please check your API key. Error: {e}", icon="🚨")
     st.stop()
