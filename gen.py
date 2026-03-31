@@ -5,7 +5,7 @@ import time
 
 # --- Configuration ---
 # Updated with your new API key
-API_KEY = "AIzaSyD0tHTZQMW43NPsPPde6PSlyyAXFnzkjrw" 
+API_KEY = "add your api key here..." 
 
 try:
     genai.configure(api_key=API_KEY)
@@ -26,127 +26,199 @@ st.set_page_config(
 # --- Custom Styling (UI Enhancement) ---
 st.markdown("""
 <style>
-    /* --- DARK THEME --- */
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
 
-    /* Main app styling */
-    .stApp {
-        background-color: #0E1117;
-        color: #FAFAFA;
+    /* --- PREMIUM NEON/GLASSMORPHISM THEME --- */
+
+    /* Global Typography & Background */
+    html, body, [class*="css"] {
+        font-family: 'Outfit', sans-serif !important;
     }
+    @keyframes move-background {
+        from { background-position: 0 0, 0 0, 0 0, 0 0; }
+        to { background-position: 0 0, 0 0, 200px 200px, -250px 250px; }
+    }
+    .stApp {
+        background-color: #09090b;
+        background-image: 
+            radial-gradient(circle at 15% 50%, rgba(168, 85, 247, 0.08), transparent 40%),
+            radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.08), transparent 40%),
+            url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1.5' fill='%23ffffff' opacity='0.25'/%3E%3Ccircle cx='140' cy='80' r='1' fill='%23ffffff' opacity='0.35'/%3E%3Ccircle cx='80' cy='150' r='2' fill='%23ffffff' opacity='0.15'/%3E%3Ccircle cx='180' cy='180' r='1.5' fill='%23ffffff' opacity='0.4'/%3E%3C/svg%3E"),
+            url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='150' r='1' fill='%23a855f7' opacity='0.3'/%3E%3Ccircle cx='200' cy='50' r='2' fill='%233b82f6' opacity='0.4'/%3E%3Ccircle cx='120' cy='220' r='1.5' fill='%23ffffff' opacity='0.15'/%3E%3Ccircle cx='220' cy='200' r='1' fill='%23a855f7' opacity='0.2'/%3E%3C/svg%3E");
+        background-size: 100% 100%, 100% 100%, 200px 200px, 250px 250px;
+        animation: move-background 40s linear infinite;
+        color: #F8FAFC;
+    }
+    
     h1, h2, h3, h4, h5, h6 {
-        color: #FAFAFA !important;
+        color: #FFFFFF !important;
+        font-weight: 700;
+        letter-spacing: -0.02em;
     }
     p, .st-write, .st-markdown {
-        color: #E0E0E0;
+        color: #94A3B8;
+        font-weight: 300;
+        line-height: 1.6;
     }
 
-    /* Sidebar styling */
+    /* Sidebar styling with Glassmorphism */
     [data-testid="stSidebar"] {
-        background-color: #1E1E1E;
-        border-right: 2px solid #31333F;
+        background: rgba(15, 15, 20, 0.4) !important;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
     }
     [data-testid="stSidebar"] h1 {
-        color: #4B8BBE !important; /* Accent color for sidebar title */
+        background: linear-gradient(90deg, #A855F7, #3B82F6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 800;
+        font-size: 1.8rem;
     }
 
-    /* Main call-to-action button styling */
+    /* Main call-to-action button styling - Glow Effect */
     .stButton>button {
-        border-radius: 20px;
-        border: 1px solid #4B8BBE;
-        background-color: #4B8BBE;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #A855F7 0%, #3B82F6 100%);
         color: white;
-        padding: 10px 24px;
-        font-weight: bold;
-        transition: all 0.3s;
+        border: none;
+        padding: 12px 28px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .stButton>button:hover {
-        background-color: #5A9CD8;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(168, 85, 247, 0.6);
+        background: linear-gradient(135deg, #B976F8 0%, #5C9AF8 100%);
         color: white;
-        border: 1px solid #5A9CD8;
     }
     
     /* Sidebar navigation buttons */
     /* Inactive (secondary) button */
     div[data-testid="stSidebarContent"] .stButton>button[kind="secondary"] {
-        background-color: transparent;
-        color: #FAFAFA;
-        border: 1px solid #31333F;
+        background: rgba(255, 255, 255, 0.03);
+        color: #94A3B8;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: none;
+        border-radius: 10px;
+        text-align: left;
+        justify-content: flex-start;
     }
     div[data-testid="stSidebarContent"] .stButton>button[kind="secondary"]:hover {
-        background-color: #31333F;
-        border-color: #4B8BBE;
+        background: rgba(255, 255, 255, 0.08);
+        color: #FFFFFF;
+        border-color: rgba(168, 85, 247, 0.3);
     }
     /* Active (primary) button */
     div[data-testid="stSidebarContent"] .stButton>button[kind="primary"] {
-        background-color: #4B8BBE;
-        color: white;
-        border-color: #4B8BBE;
+        background: linear-gradient(135deg, rgba(168,85,247,0.15) 0%, rgba(59,130,246,0.15) 100%);
+        color: #FFFFFF;
+        border: 1px solid rgba(168, 85, 247, 0.5);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
+        text-align: left;
+        justify-content: flex-start;
     }
 
     /* Expander styling */
     .st-expander {
-        border: 1px solid #31333F !important;
-        border-radius: 10px !important;
-        background-color: #262730;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-radius: 12px !important;
+        background: rgba(25, 25, 35, 0.4);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s;
+    }
+    .st-expander:hover {
+        border-color: rgba(168, 85, 247, 0.3) !important;
     }
     .st-expander header {
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: #4B8BBE;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #E2E8F0;
     }
     .st-expander p {
-        color: #E0E0E0;
+        color: #94A3B8;
     }
 
-    /* Card-like containers */
+    /* Card-like containers (Glassmorphism) */
     .card {
-        background-color: #262730;
-        border-radius: 10px;
-        padding: 25px;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+        background: rgba(20, 20, 30, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        padding: 30px;
+        margin-bottom: 24px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px 0 rgba(168, 85, 247, 0.15);
+        border-color: rgba(168, 85, 247, 0.2);
     }
     .card p {
-        color: #E0E0E0;
+        color: #CBD5E1;
+        font-size: 1.05rem;
     }
     
     /* Chat message styling */
     .chat-message {
-        padding: 1rem;
-        border-radius: 0.5rem;
-        margin-bottom: 1rem;
+        padding: 1.2rem;
+        border-radius: 14px;
+        margin-bottom: 1.2rem;
         display: flex;
-        align-items: flex-start;
+        font-weight: 300;
+        line-height: 1.6;
     }
     .chat-message.user {
-        background-color: #0B4C7A;
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.2) 100%);
+        border: 1px solid rgba(59, 130, 246, 0.2);
         justify-content: flex-end;
+        color: #F8FAFC;
     }
     .chat-message.bot {
-        background-color: #262730;
+        background: rgba(25, 25, 35, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        color: #E2E8F0;
     }
     .chat-message .avatar {
-        width: 40px;
-        height: 40px;
+        width: 44px;
+        height: 44px;
         border-radius: 50%;
-        margin-right: 1rem;
+        margin-right: 1.2rem;
+        flex-shrink: 0;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
-     .chat-message.user .avatar {
-        margin-left: 1rem;
+    .chat-message.user .avatar {
+        margin-left: 1.2rem;
         margin-right: 0;
     }
     
     /* Text input/area styling */
     .stTextInput>div>div>input, .stTextArea>div>textarea {
-        background-color: #1E1E1E;
-        color: #FAFAFA;
-        border: 1px solid #31333F;
+        background: rgba(15, 15, 20, 0.6) !important;
+        color: #FFFFFF !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 10px;
+        transition: all 0.3s;
+    }
+    .stTextInput>div>div>input:focus, .stTextArea>div>textarea:focus {
+        border-color: #A855F7 !important;
+        box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.2) !important;
     }
     
     /* Native Streamlit alerts (info, warning, error) */
-    /* They have light backgrounds, so text inside needs to be dark */
+    [data-testid="stAlert"] {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+    }
     [data-testid="stAlert"] * {
-        color: #111 !important;
+        color: #E2E8F0 !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -514,6 +586,7 @@ def render_mock_interview():
     if st.button("End Interview & Get Feedback"):
         st.session_state.interview_active = False
         with st.spinner("Generating your interview feedback..."):
+            transcript_text = "\n".join([f"{'User' if msg['role'] == 'user' else 'Interviewer'}: {msg['content']}" for msg in st.session_state.interview_chat[1:]])
             feedback_prompt = f"""
             The following is a transcript of a job interview for a '{job_role}' position.
             Please act as a hiring manager and provide constructive feedback for the user (Human).
@@ -521,7 +594,7 @@ def render_mock_interview():
             Provide a summary of their strengths, areas for improvement, and actionable tips. Format the response in Markdown.
 
             Transcript:
-            {"\n".join([f"{'User' if msg['role'] == 'user' else 'Interviewer'}: {msg['content']}" for msg in st.session_state.interview_chat[1:]])}
+            {transcript_text}
             """
             feedback = get_ai_response(feedback_prompt)
             st.session_state.interview_feedback = feedback
@@ -619,9 +692,9 @@ def main():
                 st.session_state.page = page_id
                 st.rerun()
 
-        st.markdown("---")
-        st.info("Built for the Gen AI Hackathon with ❤️ by a Team TECHNOKAMI.")
-        st.markdown("[![GitHub](https://img.shields.io/badge/GitHub-View_Code-blue?style=for-the-badge&logo=github)](https://github.com/yashinrush/AI-Personalized-Career-and-Skills-Advisor)", unsafe_allow_html=True)
+        #st.markdown("---")
+        #st.info("Built for the Gen AI Hackathon with ❤️ by a Team TECHNOKAMI.")
+        #st.markdown("[![GitHub](https://img.shields.io/badge/GitHub-View_Code-blue?style=for-the-badge&logo=github)](https://github.com/yashinrush/AI-Personalized-Career-and-Skills-Advisor)", unsafe_allow_html=True)
 
 
     # Page routing
