@@ -4,13 +4,17 @@ import json
 import time
 
 # --- Configuration ---
-# Updated with your new API key
-API_KEY = "add your api key here..." 
+# Read from Streamlit secrets or default fallback placeholder
+API_KEY = ""
+try:
+    API_KEY = st.secrets["API_KEY"]
+except Exception:
+    API_KEY = "YOUR_GEMINI_API_KEY_HERE"
 
 try:
     genai.configure(api_key=API_KEY)
-    # Changed to 'gemini-flash-latest' to avoid the 404 retired model error
-    model = genai.GenerativeModel('gemini-flash-latest')
+    # Changed to 'gemini-2.5-flash' as it works successfully with the new API key
+    model = genai.GenerativeModel('gemini-2.5-flash')
 except Exception as e:
     st.error(f"Failed to configure AI model. Please check your API key. Error: {e}", icon="🚨")
     st.stop()
@@ -48,6 +52,9 @@ st.markdown("""
         background-size: 100% 100%, 100% 100%, 200px 200px, 250px 250px;
         animation: move-background 40s linear infinite;
         color: #F8FAFC;
+    }
+    [data-testid="stHeader"] {
+        background: transparent !important;
     }
     
     h1, h2, h3, h4, h5, h6 {
